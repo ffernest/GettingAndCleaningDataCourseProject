@@ -11,7 +11,7 @@ Reference and Data Source:
 
 To execute my script with aforesaid data, unzip the downloaded files (entire "UCI HAR Dataset" folder) and put my script to the working directory of RStudio. Then simple execute the script by sourcing it, i.e.
 
-> \> source run_analysis.R
+> \> source('run_analysis.R')
 
 As my script requires some function of dplyr, it will load dplyr library in the very beginning.
 
