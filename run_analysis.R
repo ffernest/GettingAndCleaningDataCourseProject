@@ -38,26 +38,29 @@ subject <- rbind(read.table("UCI HAR Dataset/train/subject_train.txt", header = 
 x <- rbind(read.table("UCI HAR Dataset/train/X_train.txt", header = FALSE, sep="", col.names = features$feature_label, colClasses = "numeric"), read.table("UCI HAR Dataset/test/X_test.txt", header = FALSE, sep="", col.names = features$feature_label, colClasses = "numeric"))
 # Activity association
 y <- rbind(read.table("UCI HAR Dataset/train/y_train.txt", header = FALSE, sep="", col.names = c("activity_id"), colClasses = "factor"), read.table("UCI HAR Dataset/test/y_test.txt", header = FALSE, sep="", col.names = c("activity_id"), colClasses = "factor"))
-# Inertial Signals
-readInertialSignals <- function(dataSetName) {
-  rbind(read.table(paste("UCI HAR Dataset/train/Inertial Signals/", dataSetName, "_train.txt", sep=""), header = FALSE, sep="", col.names = paste("body_acc_x_", 1:nElements, sep=""), colClasses = "numeric"), read.table(paste("UCI HAR Dataset/test/Inertial Signals/", dataSetName, "_test.txt", sep=""), header = FALSE, sep="", col.names = paste("body_acc_x_", 1:nElements, sep=""), colClasses = "numeric"))
-}
-body_acc_x <- readInertialSignals("body_acc_x")
-body_acc_y <- readInertialSignals("body_acc_y")
-body_acc_z <- readInertialSignals("body_acc_z")
-body_gyro_x <- readInertialSignals("body_gyro_x")
-body_gyro_y <- readInertialSignals("body_gyro_y")
-body_gyro_z <- readInertialSignals("body_gyro_z")
-total_acc_x <- readInertialSignals("total_acc_x")
-total_acc_y <- readInertialSignals("total_acc_y")
-total_acc_z <- readInertialSignals("total_acc_z")
+#### with Inertial Signals data #### 
+#readInertialSignals <- function(dataSetName) {
+#  rbind(read.table(paste("UCI HAR Dataset/train/Inertial Signals/", dataSetName, "_train.txt", sep=""), header = FALSE, sep="", col.names = paste("body_acc_x_", 1:nElements, sep=""), colClasses = "numeric"), read.table(paste("UCI HAR Dataset/test/Inertial Signals/", dataSetName, "_test.txt", sep=""), header = FALSE, sep="", col.names = paste("body_acc_x_", 1:nElements, sep=""), colClasses = "numeric"))
+#}
+#body_acc_x <- readInertialSignals("body_acc_x")
+#body_acc_y <- readInertialSignals("body_acc_y")
+#body_acc_z <- readInertialSignals("body_acc_z")
+#body_gyro_x <- readInertialSignals("body_gyro_x")
+#body_gyro_y <- readInertialSignals("body_gyro_y")
+#body_gyro_z <- readInertialSignals("body_gyro_z")
+#total_acc_x <- readInertialSignals("total_acc_x")
+#total_acc_y <- readInertialSignals("total_acc_y")
+#total_acc_z <- readInertialSignals("total_acc_z")
 
 # Step 2: Extracts only the measurements on the mean and standard deviation for each measurement.
 mean_std_x <- select(x, grep("_mean_|_std_", features$feature_label))
 
 # Step 3: Uses descriptive activity names to name the activities in the data set
 activity_mapping <- merge(data.frame(activity_id = 1:6, activity_label), y, all = FALSE)
-activity_main <- cbind(subject, activity = activity_mapping$activity_label, mean_std_x, body_acc_x, body_acc_y, body_acc_z, body_gyro_x, body_gyro_y, body_gyro_z, total_acc_x, total_acc_y, total_acc_z)
+#### with Inertial Signals data #### 
+#activity_main <- cbind(subject, activity = activity_mapping$activity_label, mean_std_x, body_acc_x, body_acc_y, body_acc_z, body_gyro_x, body_gyro_y, body_gyro_z, total_acc_x, total_acc_y, total_acc_z)
+#### without Inertial Signals data #### 
+activity_main <- cbind(subject, activity = activity_mapping$activity_label, mean_std_x)
 
 # Step 4: Appropriately labels the data set with descriptive variable names.
 # Already done in step 1.
@@ -66,3 +69,5 @@ activity_main <- cbind(subject, activity = activity_mapping$activity_label, mean
 activity_main_2 <- sapply(split(activity_main,list(activity_main$subject_id,activity_main$activity)), function(df) colMeans(df[, 3:ncol(df)], na.rm = TRUE))
 activity_main_2 <- activity_main_2[,colSums(is.nan(activity_main_2))<nrow(activity_main_2)]
 write.table(activity_main_2, file = "Week4_Course_Project_tidy_data_set.txt", row.name=FALSE)
+
+
