@@ -51,8 +51,10 @@ mean_std_x <- select(x_combined, grep("mean\\(\\)|std\\(\\)", features$feature_l
 # Step 3: Uses descriptive activity names to name the activities in the data set
 # Read the activity labels
 activity_label <- read.table("UCI HAR Dataset/activity_labels.txt", header = FALSE, col.names = c("activity_id", "activity_label"), colClasses = "factor")
-activity_mapping <- merge(activity_label, y_combined, all = FALSE)
-activity_main <- cbind(subject_combined, activity = activity_mapping$activity_label, mean_std_x)
+y_label <- as.factor(y_combined$activity_id)
+levels(y_label) <- activity_label$activity_label
+
+activity_main <- cbind(subject_combined, activity = f, mean_std_x)
 
 # Step 4: Appropriately labels the data set with descriptive variable names.
 # Remove unnecessary dot(s)
