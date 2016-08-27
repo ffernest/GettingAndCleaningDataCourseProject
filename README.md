@@ -15,18 +15,18 @@ To execute my script with aforesaid data, unzip the downloaded files (entire "UC
 
 For ease of executing my script, I added the commands to download data scource from internet to R working directory if "UCI HAR Dataset" folder does not exist.
 
-As my script requires some function of dplyr and reshape2 packages, it will load these libraries in the very beginning.
+As my script requires some functions of dplyr and reshape2 packages, it will load these libraries in the very beginning.
 
 The major data tidy up actions follows the criteria steps stated in the project assignment. The requirement steps include:
->1.	Merges the training and the test sets to create one data set. (Use read.table and rbind to import data of trainging and test set and combined them.)
->2.	Extracts only the measurements on the mean and standard deviation for each measurement. (Use select function to extract columns with mean() and std() in column name only.)
->3.	Uses descriptive activity names to name the activities in the data set. (Use merge and cbind functions to join the data frame of activity names with other data frames.)
->4.	Appropriately labels the data set with descriptive variable names. (Use gsub function to rename the column names to supported characters. Apply the column names to each data frame during read.table.)
->5.	From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject. (Use aggreate function to calculate required average.)
+>1.	Merges the training and test data sets to create one combined data set. (Use read.table and rbind to import data of training and test data sets and combined them.)
+>2.	Extracts only the measurements on the mean and standard deviation for each measurement. (Use select function to extract only the columns with mean() and std() in column name.)
+>3.	Uses descriptive activity names to name the activities in the data set. (Use merge and cbind functions to join the data frame of activity names with core data frames.)
+>4.	Appropriately labels the data set with descriptive variable names. (Apply the column names read from features.txt to each data frame during read.table. Use make.names and gsub with regular expression to rename the column names to appropriate and supported characters. The variable names is intentionally maintained to avoid unnecessary misleading and for ease of reference from the original data source description.)
+>5.	From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject. (Use aggreate function to calculate required average. Rows with all null average of feature values are removed for better tidiness.)
 
 Finally the tidy data set created in step 5 of above instructions will be created as a txt file created with write.table() using row.name=FALSE. It will generates a tidy data text file that meets below principles:
->1. Each variable forms a column. (First two columns are subject ID and the activity performed, each of remaining columns represent one type (mean, standard deviation, maximum, etc.) of features of specific gyroscope axial (x, y, or z)).
->2. Each observation forms a row. (Each row represents the observation of features relate to specific activity performed by specific subject.)
+>1. Each variable forms a column. (First two columns are subject ID and the activity performed, each of remaining columns represent one type (mean or standard deviation ) of features.
+>2. Each observation forms a row. (Each row represents the observation of features relate to specific activity performed by specific subject. Rows with all null average of feature values are removed.)
 >3. Each type of observational unit forms a table. (The result data set table represents the average (calculated by the mean function of R) of each variable for each activity and each subject.)
 
 In order to read the final data set for later analysis, the output file can be read by the below command
