@@ -1,5 +1,5 @@
 # CodeBook for Getting and Cleaning Data Course Project 
-Describes the variables, the data, and any transformations or work that performed to clean up the data.
+Describes the variables, the output data, and any transformations or work that performed to clean up the data.
 
 Below list the script variables defined in run_analysis.R:  
 >- features: data frame for the mapping of feature IDs and labels. 
@@ -12,22 +12,22 @@ Below list the script variables defined in run_analysis.R:
 >- y_train: date frame read from y_traing.txt, the activity ID for each measurement.
 >- y_test: date frame read from y_test.txt, the activity ID for each measurement.
 >- y_combined: combined date frame from y_traing and y_test.
->- mean_std_x: data frame for column subset of x, which contains the columns of mean() and std().
+>- mean_std_x: data frame for column subset of x, where the column names contain mean() and std().
 >- activity_label: character vector, defines the activity names, c("WALKING", "WALKING_UPSTAIRS", "WALKING_DOWNSTAIRS", "SITTING", "STANDING", "LAYING").
 >- y_label: descriptive label of activities stated in y.
 >- activity_main: data frame combining subject ID, activity label and all measurement data.
 >- independent_tidy_data_set: data frame of second tidy data set with the average of each variable for each activity and each subject.
 
 Below describe the data defined or transformed in final data set:
-> 1. The first two columne, subject_id and and activity, represents the key of the table. They are the ID of subject and descriptive naming of activity respectively. 
+> 1. The first two columns, subject_id and and activity, represents the key of the table. They are the ID of subject and descriptive naming of activity respectively. 
 
-> 2. Remaining columns represent the average (calculated by mean function) values of specific features as the variable names. 
+> 2. Remaining 66 columns represent the average (calculated by mean function) values of specific mean and standard deviation features as the variable names. 
 The features come from the accelerometer and gyroscope 3-axial raw signals tAcc.XYZ and tGyro.XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc.XYZ and tGravityAcc.XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
 Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk.XYZ and tBodyGyroJerk.XYZ). Then a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc.XYZ, fBodyAccJerk.XYZ, fBodyGyro.XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals). 
 The set of variables that were estimated from these signals are average, mean(), and standard deviation, std(). 
 Finally, the average of all measured feature values for specific subject doing specific activity is calculated.
 
-> 3. Each row represents a set of average values of features for each subject and corresponding conducted activities. The row names are list below. 
+> 3. Each row represents a set of average values of features for each subject and corresponding conducted activities. The subject IDs were read as string factor. The final tidy data set was sorted by subject ID and activity. The row names are list below. 
 
 > [1] "subject_id"                "activity"                  "tBodyAcc.mean.X"           "tBodyAcc.mean.Y"          
 > [5] "tBodyAcc.mean.Z"           "tBodyAcc.std.X"            "tBodyAcc.std.Y"            "tBodyAcc.std.Z"           
